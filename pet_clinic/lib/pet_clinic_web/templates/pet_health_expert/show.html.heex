@@ -1,0 +1,29 @@
+<main>
+  <h1>Show Pet health expert</h1>
+    <div id="card">
+      <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Veterinary_symbol.svg/1200px-Veterinary_symbol.svg.png"
+      alt="Imagen de waldo"> <br>
+     
+      <strong>Name:</strong>
+      <%= @pet_health_expert.name %> <br>
+  
+      <strong>Age:</strong>
+      <%= @pet_health_expert.age %> <br>
+  
+      <strong>Email:</strong>
+      <%= @pet_health_expert.email %><br>
+    
+      <strong>Specialities:</strong>
+      <%= @pet_health_expert.specialities %> <br>
+    
+      <strong>Sex:</strong>
+      <%= @pet_health_expert.sex %> <br>
+     
+     <span><%= link "Edit", to: Routes.pet_health_expert_path(@conn, :edit, @pet_health_expert) %></span> |
+     <span><%= link "Back", to: Routes.pet_health_expert_path(@conn, :index) %></span>
+    </div>
+</main>
+
+
+

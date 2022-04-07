@@ -1,0 +1,34 @@
+<h1>Listing Experts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Email</th>
+      <th>Specialities</th>
+      <th>Sex</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for pet_health_expert <- @experts do %>
+    <tr>
+      <td><%= pet_health_expert.name %></td>
+      <td><%= pet_health_expert.age %></td>
+      <td><%= pet_health_expert.email %></td>
+      <td><%= pet_health_expert.specialities %></td>
+      <td><%= pet_health_expert.sex %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.pet_health_expert_path(@conn, :show, pet_health_expert) %></span>
+        <span><%= link "Edit", to: Routes.pet_health_expert_path(@conn, :edit, pet_health_expert) %></span>
+        <span><%= link "Delete", to: Routes.pet_health_expert_path(@conn, :delete, pet_health_expert), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Pet health expert", to: Routes.pet_health_expert_path(@conn, :new) %></span>

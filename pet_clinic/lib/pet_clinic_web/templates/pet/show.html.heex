@@ -1,0 +1,18 @@
+<main>
+<h1>Show Pet</h1>
+  <div id="card_animal">
+  <img
+      src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Andean_cat_1_Jim_Sanderson.jpg"
+      alt="Imagen de waldo"> <br>
+    <strong>Name:</strong>
+    <%= @pet.name %><br>
+          <strong>Age:</strong>
+    <%= @pet.age %><br>
+          <strong>Type:</strong>
+    <%= @pet.type %><br>
+          <strong>Sex:</strong>
+    <%= @pet.sex %><br>
+    <span><%= link "Edit", to: Routes.pet_path(@conn, :edit, @pet) %></span> |
+    <span><%= link "Back", to: Routes.pet_path(@conn, :index) %></span>
+   </div>
+</main>
