@@ -1,0 +1,28 @@
+<h1>Show Pet owner</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @pet_owner.name %>
+  </li>
+
+  <li>
+    <strong>Age:</strong>
+    <%= @pet_owner.age %>
+  </li>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @pet_owner.email %>
+  </li>
+
+  <li>
+    <strong>Phone num:</strong>
+    <%= @pet_owner.phone_num %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.pet_owner_path(@conn, :edit, @pet_owner) %></span> |
+<span><%= link "Back", to: Routes.pet_owner_path(@conn, :index) %></span>

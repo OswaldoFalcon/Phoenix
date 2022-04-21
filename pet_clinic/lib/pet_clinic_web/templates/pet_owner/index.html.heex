@@ -1,0 +1,32 @@
+<h1>Listing Owners</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Email</th>
+      <th>Phone num</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for pet_owner <- @owners do %>
+    <tr>
+      <td><%= pet_owner.name %></td>
+      <td><%= pet_owner.age %></td>
+      <td><%= pet_owner.email %></td>
+      <td><%= pet_owner.phone_num %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.pet_owner_path(@conn, :show, pet_owner) %></span>
+        <span><%= link "Edit", to: Routes.pet_owner_path(@conn, :edit, pet_owner) %></span>
+        <span><%= link "Delete", to: Routes.pet_owner_path(@conn, :delete, pet_owner), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Pet owner", to: Routes.pet_owner_path(@conn, :new) %></span>
