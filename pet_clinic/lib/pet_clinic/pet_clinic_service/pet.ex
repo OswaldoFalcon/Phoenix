@@ -5,10 +5,11 @@ defmodule PetClinic.PetClinicService.Pet do
   schema "pets" do
     field :age, :integer
     field :name, :string
-    field :sex, :string
-    field :type, :string
+   # field :type, :string 
+    field :sex, Ecto.Enum, values: [:male, :female]
+    belongs_to :type, PetClinic.PetClinicService.PetType
     belongs_to(:owner, PetClinic.PetClinicPetOwner.PetOwner, foreign_key: :owner_id)
-    belongs_to :preferred_expert, PetClinic.PetClinicExperts.PetHealthExpert
+    belongs_to(:preferred_expert, PetClinic.PetClinicExperts.PetHealthExpert, foreign_key: :preferred_expert_id) 
     timestamps()
   end
 
