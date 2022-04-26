@@ -40,9 +40,8 @@ defmodule PetClinic.Repo.Migrations.CreatePetsTypeTable do
 
       query_pet_type_id = "SELECT id FROM pet_types WHERE name = $1::varchar ;"
       pet_type_id = Ecto.Adapters.SQL.query!(Repo,query_pet_type_id,[type])
-      
       pet_type_id = pet_type_id.rows |> List.flatten |> List.first
-      query_update = "UPDATE pets SET type_id = $1::integer where name = $2::varchar ;" 
+      query_update = "UPDATE pets SET type_id = $1::integer where name = $2::varchar;" 
       Ecto.Adapters.SQL.query!(Repo,query_update,[pet_type_id,name_pet])
     end)
 

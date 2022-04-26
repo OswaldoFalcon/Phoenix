@@ -8,6 +8,6 @@ defmodule PetClinic.Repo.Migrations.CorrectExpertSexD do
 
     query = "update experts set sex = 'female' where sex not in ('male','female')"
     Ecto.Adapters.SQL.query!(Repo, query, [])
-  
+
   end
 end
