@@ -10,6 +10,7 @@ defmodule PetClinic.PetClinicService.Pet do
     belongs_to :type, PetClinic.PetClinicService.PetType
     belongs_to(:owner, PetClinic.PetClinicPetOwner.PetOwner, foreign_key: :owner_id)
     belongs_to(:preferred_expert, PetClinic.PetClinicExperts.PetHealthExpert, foreign_key: :preferred_expert_id) 
+    has_many :appointments, PetClinic.AppointmentService.Appointment, foreign_key: :pet_id
     timestamps()
   end
 
