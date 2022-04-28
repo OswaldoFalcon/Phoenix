@@ -20,7 +20,7 @@ defmodule PetClinic.Repo.Migrations.CreateExpertSpecialitiesTable do
 
     create table("expert_specialities") do
       add :health_expert_id, references("experts")
-      add :pet_type_id, references("pet_types")
+      add :pet_type_id, references("pet_types") 
     end
 
     flush()
