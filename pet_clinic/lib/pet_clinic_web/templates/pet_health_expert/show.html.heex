@@ -15,7 +15,7 @@
       <%= @pet_health_expert.email %><br>
     
       <strong>Specialities:</strong>
-      <%= @pet_health_expert.specialities %> <br>
+      <%= Enum.map(@pet_health_expert.specialities, fn speciality -> speciality.name <> " " end) %> <br>
     
       <strong>Sex:</strong>
       <%= @pet_health_expert.sex %> <br>

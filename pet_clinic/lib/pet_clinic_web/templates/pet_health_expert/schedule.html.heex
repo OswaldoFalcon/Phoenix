@@ -1,0 +1,24 @@
+<h1>Appointmens for <%= @pet_health_expert.name %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Patient</th>
+      <th>Owner</th>
+      <th>Hours Occupied</th>
+      <th>Type</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for d <- @data_appoinments do %>
+      <tr> 
+        <td> <%= d.pet.name %> </td>
+        <td> <%= @pet_health_expert.name %> </td>
+        <td> <%= NaiveDateTime.to_time(d.date) %> </td>
+        <td> <%= Enum.at(@pet_types, d.pet.type_id - 1) |> Map.get(:name)%> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

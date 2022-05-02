@@ -2,7 +2,6 @@ defmodule PetClinic.AppointmentService.AppointmentService do
     alias PetClinic.Repo
     alias PetClinic.PetClinicService.Pet
     alias PetClinic.PetClinicExperts.PetHealthExpert
-    alias PetClinic.AppointmentService.ExpertSchedule
     alias PetClinic.AppointmentService.Appointment
     import Ecto.Changeset
     import Ecto.Query
@@ -101,10 +100,20 @@ defmodule PetClinic.AppointmentService.AppointmentService do
         |> Enum.map(fn date -> Enum.map(date,fn {k,v} -> %{k => time_range(List.first(v), List.last(v))} end ) end)
         |> List.flatten
      end
+
+
+     #funcion para consultar un appoinment
+     def get_appoinments(id, date) do
+        [yyyy, mm, dd] = String.split(date, "-")
+        {:ok, date} = Date.from_iso8601("#{yyyy}-#{mm}-#{dd}")       
+        apo = Repo.all(from a in Appointment, where: a.health_expert_id == ^id) |> Repo.preload(:pet)
+        Enum.filter(apo, fn a -> NaiveDateTime.to_date(a.date) == date  end) 
+
+     end
 end
 
 
-
+#type = Enum.map(apo, fn t -> t.type_id end) 
 
 
 

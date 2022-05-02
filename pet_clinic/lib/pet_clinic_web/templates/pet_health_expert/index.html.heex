@@ -18,7 +18,8 @@
       <td><%= pet_health_expert.name %></td>
       <td><%= pet_health_expert.age %></td>
       <td><%= pet_health_expert.email %></td>
-      <td><%= pet_health_expert.specialities.name%></td>
+      <td><%= Enum.map(pet_health_expert.specialities, fn speciality -> speciality.name <> " " end) 
+               %></td>
       <td><%= pet_health_expert.sex %></td>
 
       <td>
