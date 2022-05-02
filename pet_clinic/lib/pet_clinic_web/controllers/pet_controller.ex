@@ -1,8 +1,10 @@
 defmodule PetClinicWeb.PetController do
   use PetClinicWeb, :controller
-
+  
   alias PetClinic.PetClinicService
   alias PetClinic.PetClinicService.Pet
+  alias PetClinic.PetClinicPetOwner
+  alias PetClinic.PetClinicExperts
 
   def index(conn, _params) do
     pets = PetClinicService.list_pets()
@@ -11,7 +13,10 @@ defmodule PetClinicWeb.PetController do
 
   def new(conn, _params) do
     changeset = PetClinicService.change_pet(%Pet{})
-    render(conn, "new.html", changeset: changeset)
+    pet_types = PetClinicService.list_pet_by_type()
+    owners = PetClinicPetOwner.list_owners()
+    experts = PetClinicExperts.list_experts()
+    render(conn, "new.html", pet_types: pet_types, owners: owners, experts: experts, changeset: changeset)
   end
 
   def create(conn, %{"pet" => pet_params}) do
@@ -28,13 +33,18 @@ defmodule PetClinicWeb.PetController do
 
   def show(conn, %{"id" => id}) do
     pet = PetClinicService.get_pet!(id)
-    render(conn, "show.html", pet: pet)
+    owner = PetClinic.PetClinicPetOwner.get_pet_owner!(pet.owner_id)
+    expert = PetClinic.PetClinicExperts.get_pet_health_expert!(pet.preferred_expert_id) 
+    render(conn, "show.html", pet: pet, owner: owner, expert: expert)
   end
 
   def edit(conn, %{"id" => id}) do
     pet = PetClinicService.get_pet!(id)
     changeset = PetClinicService.change_pet(pet)
-    render(conn, "edit.html", pet: pet, changeset: changeset)
+    pet_types = PetClinicService.list_pet_by_type()
+    owners = PetClinicPetOwner.list_owners()
+    experts = PetClinicExperts.list_experts()
+    render(conn, "edit.html", pet: pet, pet_types: pet_types, owners: owners, experts: experts, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "pet" => pet_params}) do

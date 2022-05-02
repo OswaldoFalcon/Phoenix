@@ -9,9 +9,14 @@
           <strong>Age:</strong>
     <%= @pet.age %><br>
           <strong>Type:</strong>
-    <%= @pet.type %><br>
+    <%= @pet.type.name %><br>
           <strong>Sex:</strong>
     <%= @pet.sex %><br>
+      <strong>Owner:</strong>
+    <%= @owner.name %><br>
+      <strong>Preferred Expert:</strong>
+      <%= @expert.name %><br>
+      
     <span><%= link "Edit", to: Routes.pet_path(@conn, :edit, @pet) %></span> |
     <span><%= link "Back", to: Routes.pet_path(@conn, :index) %></span>
    </div>

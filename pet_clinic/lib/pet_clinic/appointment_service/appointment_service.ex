@@ -16,7 +16,7 @@ defmodule PetClinic.AppointmentService.AppointmentService do
                 expert = Repo.one(from e in ExpertSchedule, where: e.health_expert_id == ^id )
                 range = date_range(from_date, to_date)
                 days = transform_to_day(range)
-                days_hours = schedule(expert, days) 
+                days_hours  = schedule(expert, days) 
                 |> filter(range)
                 |> Enum.map(fn f ->  %{Enum.at(f,2) => [Enum.at(f,0), Enum.at(f,1)]} end) 
                 |> Enum.map(fn date -> Enum.map(date,fn {k,v} ->%{k => time_range(List.first(v), List.last(v))} end ) end)

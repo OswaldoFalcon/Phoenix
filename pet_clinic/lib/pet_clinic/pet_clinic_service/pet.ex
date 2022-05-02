@@ -18,8 +18,8 @@ defmodule PetClinic.PetClinicService.Pet do
   
   def changeset(pet, attrs \\ %{}) do
     pet
-    |> cast(attrs, [:name, :age, :type, :sex])
-    |> validate_required([:name, :age, :type, :sex])
+    |> cast(attrs, [:name, :age, :type_id, :sex, :preferred_expert_id, :owner_id])
+    |> validate_required([:name, :age, :type_id, :sex, :preferred_expert_id, :owner_id])
     |> validate_number(:age, greater_than_or_equal_to: 0)
   end
 end

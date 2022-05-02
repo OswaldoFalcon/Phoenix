@@ -5,8 +5,9 @@ defmodule PetClinic.PetClinicService do
 
   import Ecto.Query, warn: false
   alias PetClinic.Repo
-
   alias PetClinic.PetClinicService.Pet
+  alias PetClinic.PetClinicService.PetType
+
 
   @doc """
   Returns the list of pets.
@@ -18,7 +19,7 @@ defmodule PetClinic.PetClinicService do
 
   """
   def list_pets do
-    Repo.all(Pet)
+    Repo.all(Pet) |> Repo.preload(:type)
   end
 
   @doc """
@@ -35,7 +36,7 @@ defmodule PetClinic.PetClinicService do
       ** (Ecto.NoResultsError)
 
   """
-  def get_pet!(id), do: Repo.get!(Pet, id)
+  def get_pet!(id), do: Repo.get!(Pet, id) |> Repo.preload(:type)
 
   @doc """
   Creates a pet.
@@ -104,5 +105,10 @@ defmodule PetClinic.PetClinicService do
   def list_pets_by_type(type) do
     Repo.all(from p in Pet, where: p.type == ^type)
   end
+
+  def list_pet_by_type() do
+    Repo.all(PetType)
+  end
+  
   
 end

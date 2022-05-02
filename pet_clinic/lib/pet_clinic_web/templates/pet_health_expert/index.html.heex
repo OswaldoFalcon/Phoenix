@@ -14,11 +14,11 @@
   </thead>
   <tbody>
 <%= for pet_health_expert <- @experts do %>
-    <tr>
+    <tr>  
       <td><%= pet_health_expert.name %></td>
       <td><%= pet_health_expert.age %></td>
       <td><%= pet_health_expert.email %></td>
-      <td><%= pet_health_expert.specialities %></td>
+      <td><%= pet_health_expert.specialities.name%></td>
       <td><%= pet_health_expert.sex %></td>
 
       <td>

@@ -7,6 +7,7 @@ defmodule PetClinic.PetClinicExperts do
   alias PetClinic.Repo
 
   alias PetClinic.PetClinicExperts.PetHealthExpert
+  alias PetClinic.PetClinicService.ExpertSpecialities
 
   @doc """
   Returns the list of experts.
@@ -18,7 +19,7 @@ defmodule PetClinic.PetClinicExperts do
 
   """
   def list_experts do
-    Repo.all(PetHealthExpert)
+    Repo.all(PetHealthExpert) |> Repo.preload(:specialities)
   end
 
   @doc """
@@ -100,6 +101,10 @@ defmodule PetClinic.PetClinicExperts do
   """
   def change_pet_health_expert(%PetHealthExpert{} = pet_health_expert, attrs \\ %{}) do
     PetHealthExpert.changeset(pet_health_expert, attrs)
+  end
+
+  def get_pet_health_expert_specialities() do
+    Repo.all(ExpertSpecialities)
   end
 end
   

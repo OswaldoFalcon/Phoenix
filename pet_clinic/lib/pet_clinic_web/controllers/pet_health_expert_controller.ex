@@ -6,6 +6,7 @@ defmodule PetClinicWeb.PetHealthExpertController do
 
   def index(conn, _params) do
     experts = PetClinicExperts.list_experts()
+    #specialities = PetClinicExperts.get_pet_health_expert_specialities()
     render(conn, "index.html", experts: experts)
   end
 
