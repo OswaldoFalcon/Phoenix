@@ -8,7 +8,6 @@ defmodule PetClinic.PetClinicService do
   alias PetClinic.PetClinicService.Pet
   alias PetClinic.PetClinicService.PetType
 
-
   @doc """
   Returns the list of pets.
 
@@ -101,7 +100,7 @@ defmodule PetClinic.PetClinicService do
   def change_pet(%Pet{} = pet, attrs \\ %{}) do
     Pet.changeset(pet, attrs)
   end
-  
+
   def list_pets_by_type(type) do
     Repo.all(from p in Pet, where: p.type == ^type)
   end
@@ -109,6 +108,4 @@ defmodule PetClinic.PetClinicService do
   def list_pet_by_type() do
     Repo.all(PetType)
   end
-  
-  
 end

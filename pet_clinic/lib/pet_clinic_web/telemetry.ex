@@ -1,4 +1,7 @@
 defmodule PetClinicWeb.Telemetry do
+  @moduledoc """
+  This module is for Telemetry
+  """
   use Supervisor
   import Telemetry.Metrics
 

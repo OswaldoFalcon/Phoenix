@@ -8,11 +8,9 @@ defmodule PetClinicWeb.PetHealthExpertController do
   alias PetClinic.AppointmentService.AppointmentService
   alias PetClinicService.PetType
 
-
-
   def index(conn, _params) do
     experts = PetClinicExperts.list_experts()
-    #specialities = PetClinicExperts.get_pet_health_expert_specialities()
+    # specialities = PetClinicExperts.get_pet_health_expert_specialities()
     render(conn, "index.html", experts: experts)
   end
 
@@ -68,10 +66,14 @@ defmodule PetClinicWeb.PetHealthExpertController do
   end
 
   def schedule(conn, %{"id" => id, "date" => date}) do
-    
     pet_health_expert = PetClinicExperts.get_pet_health_expert!(id)
-    data_appoinments = AppointmentService.get_appoinments(id, date) 
-    pet_types =  Repo.all(PetType)
-    render(conn, "schedule.html", pet_health_expert: pet_health_expert, data_appoinments: data_appoinments, pet_types: pet_types)
+    data_appoinments = AppointmentService.get_appoinments(id, date)
+    pet_types = Repo.all(PetType)
+
+    render(conn, "schedule.html",
+      pet_health_expert: pet_health_expert,
+      data_appoinments: data_appoinments,
+      pet_types: pet_types
+    )
   end
 end

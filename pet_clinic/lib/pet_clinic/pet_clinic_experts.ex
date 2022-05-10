@@ -36,7 +36,8 @@ defmodule PetClinic.PetClinicExperts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_pet_health_expert!(id), do: Repo.get!(PetHealthExpert, id) |> Repo.preload(:specialities)
+  def get_pet_health_expert!(id),
+    do: Repo.get!(PetHealthExpert, id) |> Repo.preload(:specialities)
 
   @doc """
   Creates a pet_health_expert.
@@ -104,7 +105,6 @@ defmodule PetClinic.PetClinicExperts do
   end
 
   def get_pet_health_expert_specialities(id) do
-    Repo.get(ExpertSpecialities,id)
+    Repo.get(ExpertSpecialities, id)
   end
 end
-  

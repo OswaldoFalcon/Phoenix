@@ -3,7 +3,7 @@ defmodule PetClinic.Repo.Migrations.CreateExpertScheduleTable do
 
   def change do
     create table("expert_schedule") do
-      add :health_expert_id, references("experts")  
+      add :health_expert_id, references("experts")
       add :monday_start, :time
       add :monday_end, :time
       add :tuesday_start, :time
