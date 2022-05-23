@@ -162,7 +162,7 @@ defmodule PetClinic.AppointmentService.AppointmentService do
   end
 
   # funcion para consultar un appoinment
-  defp get_appoinments(id, date) do
+  def get_appoinments(id, date) do
     [yyyy, mm, dd] = String.split(date, "-")
     {:ok, date} = Date.from_iso8601("#{yyyy}-#{mm}-#{dd}")
     apo = Repo.all(from a in Appointment, where: a.health_expert_id == ^id) |> Repo.preload(:pet)
