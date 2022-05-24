@@ -19,8 +19,11 @@ defmodule PetClinic.PetClinicExperts do
 
   """
   def list_experts do
-    Repo.all(PetHealthExpert) |> Repo.preload(:specialities)
+    # |> Repo.preload(:specialities)
+    Repo.all(PetHealthExpert)
   end
+
+  def list_experts(assoc), do: Repo.all(PetHealthExpert) |> Repo.preload(assoc)
 
   @doc """
   Gets a single pet_health_expert.
@@ -37,7 +40,10 @@ defmodule PetClinic.PetClinicExperts do
 
   """
   def get_pet_health_expert!(id),
-    do: Repo.get!(PetHealthExpert, id) |> Repo.preload(:specialities)
+    do: Repo.get!(PetHealthExpert, id)
+
+  def get_pet_health_expert!(id, assoc),
+    do: Repo.get!(PetHealthExpert, id) |> Repo.preload(assoc)
 
   @doc """
   Creates a pet_health_expert.

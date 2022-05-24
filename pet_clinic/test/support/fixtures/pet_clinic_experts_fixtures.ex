@@ -14,8 +14,7 @@ defmodule PetClinic.PetClinicExpertsFixtures do
         age: 42,
         email: "some email",
         name: "some name",
-        sex: "some sex",
-        specialities: "some specialities"
+        sex: :male
       })
       |> PetClinic.PetClinicExperts.create_pet_health_expert()
 

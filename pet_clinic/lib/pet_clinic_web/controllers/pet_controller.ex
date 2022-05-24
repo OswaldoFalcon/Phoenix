@@ -7,7 +7,7 @@ defmodule PetClinicWeb.PetController do
   alias PetClinic.PetClinicExperts
 
   def index(conn, _params) do
-    pets = PetClinicService.list_pets()
+    pets = PetClinicService.list_pets(:type)
     render(conn, "index.html", pets: pets)
   end
 
@@ -26,22 +26,32 @@ defmodule PetClinicWeb.PetController do
   end
 
   def create(conn, %{"pet" => pet_params}) do
+    pet_types = PetClinicService.list_pet_by_type()
+    owners = PetClinicPetOwner.list_owners()
+    experts = PetClinicExperts.list_experts()
+
     case PetClinicService.create_pet(pet_params) do
       {:ok, pet} ->
         conn
-        |> put_flash(:info, "Pet created successfully.")
+        |> put_flash(:info, "Pet created succes sfully.")
         |> redirect(to: Routes.pet_path(conn, :show, pet))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html",
+          changeset: changeset,
+          pet_types: pet_types,
+          owners: owners,
+          experts: experts
+        )
     end
   end
 
   def show(conn, %{"id" => id}) do
-    pet = PetClinicService.get_pet!(id)
+    pet = PetClinicService.get_pet!(id, :type)
+    pet_types = PetClinicService.list_pet_by_type()
     owner = PetClinic.PetClinicPetOwner.get_pet_owner!(pet.owner_id)
     expert = PetClinic.PetClinicExperts.get_pet_health_expert!(pet.preferred_expert_id)
-    render(conn, "show.html", pet: pet, owner: owner, expert: expert)
+    render(conn, "show.html", pet: pet, owner: owner, expert: expert, pet_types: pet_types)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -70,7 +80,17 @@ defmodule PetClinicWeb.PetController do
         |> redirect(to: Routes.pet_path(conn, :show, pet))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", pet: pet, changeset: changeset)
+        pet_types = PetClinicService.list_pet_by_type()
+        owners = PetClinicPetOwner.list_owners()
+        experts = PetClinicExperts.list_experts()
+
+        render(conn, "edit.html",
+          pet: pet,
+          changeset: changeset,
+          pet_types: pet_types,
+          owners: owners,
+          experts: experts
+        )
     end
   end
 

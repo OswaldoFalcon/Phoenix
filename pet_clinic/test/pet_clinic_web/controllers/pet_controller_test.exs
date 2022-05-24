@@ -2,13 +2,13 @@ defmodule PetClinicWeb.PetControllerTest do
   use PetClinicWeb.ConnCase
 
   import PetClinic.PetClinicServiceFixtures
-
-  @create_attrs %{age: 42, name: "some name", sex: "some sex", type: "some type"}
+  alias PetClinic.PetClinicExpertsFixtures
+  alias PetClinic.PetClinicPetOwnerFixtures
+  # @create_attrs %{age: 42, name: "some name", sex: "some sex" }
   @update_attrs %{
     age: 43,
     name: "some updated name",
-    sex: "some updated sex",
-    type: "some updated type"
+    sex: :male
   }
   @invalid_attrs %{age: nil, name: nil, sex: nil, type: nil}
 
@@ -28,7 +28,20 @@ defmodule PetClinicWeb.PetControllerTest do
 
   describe "create pet" do
     test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.pet_path(conn, :create), pet: @create_attrs)
+      pet_type = type_fixture()
+      preferred_expert = PetClinicExpertsFixtures.pet_health_expert_fixture()
+      owner = PetClinic.PetClinicPetOwnerFixtures.pet_owner_fixture()
+
+      create_attrs = %{
+        age: 42,
+        name: "some name",
+        sex: :male,
+        type_id: pet_type.id,
+        preferred_expert_id: preferred_expert.id,
+        owner_id: owner.id
+      }
+
+      conn = post(conn, Routes.pet_path(conn, :create), pet: create_attrs)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.pet_path(conn, :show, id)

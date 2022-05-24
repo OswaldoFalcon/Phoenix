@@ -9,7 +9,7 @@ defmodule PetClinicWeb.PetHealthExpertController do
   alias PetClinicService.PetType
 
   def index(conn, _params) do
-    experts = PetClinicExperts.list_experts()
+    experts = PetClinicExperts.list_experts(:specialities)
     # specialities = PetClinicExperts.get_pet_health_expert_specialities()
     render(conn, "index.html", experts: experts)
   end
@@ -32,7 +32,7 @@ defmodule PetClinicWeb.PetHealthExpertController do
   end
 
   def show(conn, %{"id" => id}) do
-    pet_health_expert = PetClinicExperts.get_pet_health_expert!(id)
+    pet_health_expert = PetClinicExperts.get_pet_health_expert!(id, :specialities)
     render(conn, "show.html", pet_health_expert: pet_health_expert)
   end
 

@@ -11,12 +11,14 @@ defmodule PetClinic.PetClinicExpertsTest do
     @invalid_attrs %{age: nil, email: nil, name: nil, sex: nil, specialities: nil}
 
     test "list_experts/0 returns all experts" do
+      # pet_health_expert = pet_health_expert_fixture(%{specialities: []})
       pet_health_expert = pet_health_expert_fixture()
       assert PetClinicExperts.list_experts() == [pet_health_expert]
     end
 
     test "get_pet_health_expert!/1 returns the pet_health_expert with given id" do
-      pet_health_expert = pet_health_expert_fixture()
+      pet_health_expert = pet_health_expert_fixture(%{specialities: []})
+      # pet_health_expert = pet_health_expert_fixture()
       assert PetClinicExperts.get_pet_health_expert!(pet_health_expert.id) == pet_health_expert
     end
 
@@ -25,8 +27,8 @@ defmodule PetClinic.PetClinicExpertsTest do
         age: 42,
         email: "some email",
         name: "some name",
-        sex: "some sex",
-        specialities: "some specialities"
+        sex: :male
+        # specialities: "some specialities"
       }
 
       assert {:ok, %PetHealthExpert{} = pet_health_expert} =
@@ -35,8 +37,8 @@ defmodule PetClinic.PetClinicExpertsTest do
       assert pet_health_expert.age == 42
       assert pet_health_expert.email == "some email"
       assert pet_health_expert.name == "some name"
-      assert pet_health_expert.sex == "some sex"
-      assert pet_health_expert.specialities == "some specialities"
+      assert pet_health_expert.sex == :male
+      # assert pet_health_expert.specialities == "some specialities"
     end
 
     test "create_pet_health_expert/1 with invalid data returns error changeset" do
@@ -51,8 +53,8 @@ defmodule PetClinic.PetClinicExpertsTest do
         age: 43,
         email: "some updated email",
         name: "some updated name",
-        sex: "some updated sex",
-        specialities: "some updated specialities"
+        sex: :male
+        # specialities: "some updated specialities"
       }
 
       assert {:ok, %PetHealthExpert{} = pet_health_expert} =
@@ -61,8 +63,8 @@ defmodule PetClinic.PetClinicExpertsTest do
       assert pet_health_expert.age == 43
       assert pet_health_expert.email == "some updated email"
       assert pet_health_expert.name == "some updated name"
-      assert pet_health_expert.sex == "some updated sex"
-      assert pet_health_expert.specialities == "some updated specialities"
+      assert pet_health_expert.sex == :male
+      # assert pet_health_expert.specialities == "some updated specialities"
     end
 
     test "update_pet_health_expert/2 with invalid data returns error changeset" do

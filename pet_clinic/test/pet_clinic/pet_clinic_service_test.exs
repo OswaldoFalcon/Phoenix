@@ -21,13 +21,13 @@ defmodule PetClinic.PetClinicServiceTest do
     end
 
     test "create_pet/1 with valid data creates a pet" do
-      valid_attrs = %{age: 42, name: "some name", sex: "some sex", type: "some type"}
+      pet_type = type_fixture()
+      valid_attrs = %{age: 42, name: "some name", sex: :male, type_id: pet_type.id}
 
       assert {:ok, %Pet{} = pet} = PetClinicService.create_pet(valid_attrs)
       assert pet.age == 42
       assert pet.name == "some name"
-      assert pet.sex == "some sex"
-      assert pet.type == "some type"
+      assert pet.sex == :male
     end
 
     test "create_pet/1 with invalid data returns error changeset" do
@@ -36,19 +36,19 @@ defmodule PetClinic.PetClinicServiceTest do
 
     test "update_pet/2 with valid data updates the pet" do
       pet = pet_fixture()
+      pet_type = type_fixture()
 
       update_attrs = %{
         age: 43,
         name: "some updated name",
-        sex: "some updated sex",
-        type: "some updated type"
+        sex: :male,
+        type: pet_type.id
       }
 
       assert {:ok, %Pet{} = pet} = PetClinicService.update_pet(pet, update_attrs)
       assert pet.age == 43
       assert pet.name == "some updated name"
-      assert pet.sex == "some updated sex"
-      assert pet.type == "some updated type"
+      assert pet.sex == :male
     end
 
     test "update_pet/2 with invalid data returns error changeset" do

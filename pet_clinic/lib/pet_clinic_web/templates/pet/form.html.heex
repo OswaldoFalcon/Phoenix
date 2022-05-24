@@ -28,7 +28,7 @@
    <%= label f, :preferred_expert_id %>
   <%= select f, :preferred_expert_id, Enum.map(@experts, fn pt -> {pt.name, pt.id} end) %>
   <%= error_tag f, :preferred_expert_id %>
-
+  
   <div>
     <%= submit "Save" %>
   </div>

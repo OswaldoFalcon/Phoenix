@@ -28,7 +28,7 @@ defmodule PetClinic.PetClinicExperts.PetHealthExpert do
   @doc false
   def changeset(pet_health_expert, attrs) do
     pet_health_expert
-    |> cast(attrs, [:name, :age, :email, :specialities, :sex])
-    |> validate_required([:name, :age, :email, :specialities, :sex])
+    |> cast(attrs, [:name, :age, :email, :sex])
+    |> validate_required([:name, :age, :email, :sex])
   end
 end
