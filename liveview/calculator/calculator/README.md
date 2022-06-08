@@ -15,7 +15,7 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 This is a Calculator, you have to click in the button numbers , select and operation an then click on " = " to solve.
 
 ## IMG
-![image](https://user-images.githubusercontent.com/77717622/172509550-83942f9c-9b18-470c-b3e9-9384dc17a632.png)
+<img width="1440" alt="image" src="https://user-images.githubusercontent.com/77717622/172732568-3c8283a7-e429-4f72-9fcc-1af4fcc052a8.png">
 
 
 ## Learn more
