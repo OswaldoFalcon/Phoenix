@@ -5,14 +5,21 @@ defmodule PetClinic.AppointmentService.Appointment do
   And the fields to do an Appointment.
   """
   use Ecto.Schema
+  import Ecto.Changeset
 
   schema "appointments" do
-    belongs_to :health_expert, PetClinic.PetClinicExperts.PetHealthExpert,
+    belongs_to :heainlth_expert, PetClinic.PetClinicExperts.PetHealthExpert,
       foreign_key: :health_expert_id
 
     belongs_to :pet, PetClinic.PetClinicService.Pet, foreign_key: :pet_id
     field :date, :naive_datetime
     timestamps()
+  end
+
+  def changeset(appoinment, attrs) do
+    appoinment
+    |> cast(attrs, [:health_expert_id, :pet_id, :date])
+    |> validate_required([:health_expert_id, :pet_id, :date])
   end
 end
 

@@ -30,7 +30,7 @@ defmodule PetClinicWeb.PetControllerTest do
     test "redirects to show when data is valid", %{conn: conn} do
       pet_type = type_fixture()
       preferred_expert = PetClinicExpertsFixtures.pet_health_expert_fixture()
-      owner = PetClinic.PetClinicPetOwnerFixtures.pet_owner_fixture()
+      owner = PetClinicPetOwnerFixtures.pet_owner_fixture()
 
       create_attrs = %{
         age: 42,

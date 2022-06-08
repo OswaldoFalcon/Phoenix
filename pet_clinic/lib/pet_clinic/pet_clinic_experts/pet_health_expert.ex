@@ -32,3 +32,4 @@ defmodule PetClinic.PetClinicExperts.PetHealthExpert do
     |> validate_required([:name, :age, :email, :sex])
   end
 end
+  

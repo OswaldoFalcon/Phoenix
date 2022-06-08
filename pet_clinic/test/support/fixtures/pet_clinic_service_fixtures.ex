@@ -12,7 +12,7 @@ defmodule PetClinic.PetClinicServiceFixtures do
 
   def pet_fixture(attrs \\ %{}) do
     preferred_expert = PetClinicExpertsFixtures.pet_health_expert_fixture()
-    owner = PetClinic.PetClinicPetOwnerFixtures.pet_owner_fixture()
+    owner = PetClinicPetOwnerFixtures.pet_owner_fixture()
     pet_type = type_fixture()
 
     {:ok, pet} =

@@ -4,7 +4,6 @@ defmodule PetClinicWeb.PetHealthExpertController do
   alias PetClinic.PetClinicExperts
   alias PetClinic.PetClinicExperts.PetHealthExpert
   alias PetClinic.PetClinicService
-  alias PetClinic.PetClinicPetOwner.PetOwner
   alias PetClinic.AppointmentService.AppointmentService
   alias PetClinicService.PetType
 

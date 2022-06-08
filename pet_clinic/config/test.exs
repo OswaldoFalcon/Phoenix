@@ -8,7 +8,7 @@ import Config
 config :pet_clinic, PetClinic.Repo,
   username: "postgres",
   password: "postgres",
-  hostname: "localhost",
+  hostname: if(System.get_env("CI"), do: "postgres", else: "localhost"),
   database: "pet_clinic_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10

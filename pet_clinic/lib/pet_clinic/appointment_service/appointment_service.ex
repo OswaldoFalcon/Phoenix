@@ -5,45 +5,27 @@ defmodule PetClinic.AppointmentService.AppointmentService do
   """
   alias PetClinic.Repo
   alias PetClinic.PetClinicService.Pet
-  alias PetClinic.PetClinicExperts.PetHealthExpert
   alias PetClinic.AppointmentService.Appointment
-  import Ecto.Changeset
+  alias PetClinic.AppointmentService.ExpertSchedule
   import Ecto.Query
 
   def available_slots(id, from_date, to_date) do
     cond do
+      # Compara la fecha  #AppointmentService.available_slots(2,~D[2022-05-26], ~D[2022-05-25])#
       Date.compare(from_date, to_date) == :gt ->
         {:error, "wrong date range"}
 
+      # Compara si  la fecha esta en el pasado , comparanado con fecha now   AppointmentService.available_slots(2,~D[2022-05-23], ~D[2022-05-25])
       Date.compare(from_date, NaiveDateTime.to_date(NaiveDateTime.utc_now())) == :lt ->
-        {:error, "datetime is in the past"}
+        {:error, "From datetime is in the past"}
 
-      Date.compare(to_date, NaiveDateTime.to_date(NaiveDateTime.utc_now())) == :lt ->
-        {:error, "datetime is in the past"}
-
+      # Compara  AppointmentService.available_slots(2,~D[2022-05-26], ~D[2022-05-26])
       Date.compare(from_date, to_date) == :eq ->
-        expert = Repo.one(from e in ExpertSchedule, where: e.health_expert_id == ^id)
-        range = date_range(from_date, to_date)
-        days = transform_to_day(range)
-        days_hours = schedule(expert, days)
+        slots(id, from_date, to_date)
 
-        filter =
-          filter(days_hours, range)
-          |> Enum.map(fn f -> %{Enum.at(f, 2) => [Enum.at(f, 0), Enum.at(f, 1)]} end)
-          |> Enum.map(fn date -> time_range(date) end)
-          |> List.flatten()
-
+      # Compara  AppointmentService.available_slots(2,~D[2022-05-26], ~D[2022-05-31])
       Date.compare(from_date, to_date) == :lt ->
-        expert = Repo.one(from e in ExpertSchedule, where: e.health_expert_id == ^id)
-        range = date_range(from_date, to_date)
-        days = transform_to_day(range)
-        days_hours = schedule(expert, days)
-
-        filter =
-          filter(days_hours, range)
-          |> Enum.map(fn f -> %{Enum.at(f, 2) => [Enum.at(f, 0), Enum.at(f, 1)]} end)
-          |> Enum.map(fn date -> time_range(date) end)
-          |> List.flatten()
+        slots(id, from_date, to_date)
     end
   end
 
@@ -74,6 +56,18 @@ defmodule PetClinic.AppointmentService.AppointmentService do
 
   # -----------------------------------------private-------------------------------------------__#
 
+  defp slots(id, from_date, to_date) do
+    expert = Repo.one(from e in ExpertSchedule, where: e.health_expert_id == ^id)
+    range = date_range(from_date, to_date)
+    days = transform_to_day(range)
+    days_hours = schedule(expert, days)
+
+    filter(days_hours, range)
+    |> Enum.map(fn f -> %{Enum.at(f, 2) => [Enum.at(f, 0), Enum.at(f, 1)]} end)
+    |> Enum.map(fn date -> time_range(date) end)
+    |> List.flatten()
+  end
+
   defp time_range(date) do
     Enum.map(date, fn {k, v} -> %{k => time_range(List.first(v), List.last(v))} end)
   end
@@ -93,7 +87,8 @@ defmodule PetClinic.AppointmentService.AppointmentService do
     cond do
       is_there == true ->
         chset = %Appointment{health_expert_id: id_expert, pet_id: id_pet, date: timedate}
-        Repo.insert(chset)
+        {status, _} = Repo.insert(chset)
+        {status, "Add New Appoinment"}
 
       is_there == false ->
         {:error, "NO hour for this day"}
@@ -129,8 +124,8 @@ defmodule PetClinic.AppointmentService.AppointmentService do
   # Funcion recursiva para crear slots de media hora
   defp time_range(init_time, end_time) do
     case Time.compare(init_time, end_time) do
-      :gt ->
-        []
+      # :gt ->
+      #  []
 
       :eq ->
         [init_time]
@@ -153,13 +148,13 @@ defmodule PetClinic.AppointmentService.AppointmentService do
   end
 
   # funcion poara convertir a map las listas 
-  def available(filter) do
-    Enum.map(filter, fn f -> %{Enum.at(f, 2) => [Enum.at(f, 0), Enum.at(f, 1)]} end)
-    |> Enum.map(fn date ->
-      Enum.map(date, fn {k, v} -> %{k => time_range(List.first(v), List.last(v))} end)
-    end)
-    |> List.flatten()
-  end
+  # def available(filter) do
+  #  Enum.map(filter, fn f -> %{Enum.at(f, 2) => [Enum.at(f, 0), Enum.at(f, 1)]} end)
+  #  |> Enum.map(fn date ->
+  #    Enum.map(date, fn {k, v} -> %{k => time_range(List.first(v), List.last(v))} end)
+  #  end)
+  #  |> List.flatten()
+  # end
 
   # funcion para consultar un appoinment
   def get_appoinments(id, date) do
@@ -169,5 +164,3 @@ defmodule PetClinic.AppointmentService.AppointmentService do
     Enum.filter(apo, fn a -> NaiveDateTime.to_date(a.date) == date end)
   end
 end
-
-# type = Enum.map(apo, fn t -> t.type_id end) 
