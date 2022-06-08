@@ -10,6 +10,14 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
+## Sumary
+
+This is a Calculator, you have to click in the button numbers , select and operation an then click on " = " to solve.
+
+## IMG
+![image](https://user-images.githubusercontent.com/77717622/172509550-83942f9c-9b18-470c-b3e9-9384dc17a632.png)
+
+
 ## Learn more
 
   * Official website: https://www.phoenixframework.org/
