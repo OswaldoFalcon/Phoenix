@@ -62,7 +62,7 @@ defmodule CalculatorWeb.CalculatorLive do
       socket.assigns.total == 0 and socket.assigns.score != 0 ->
         current_score = socket.assigns.score
         current_number = convert_type(socket.assigns.current_number)
-        score = operation(operator, current_score, current_number)
+        score = operation(socket.assigns.operator, current_score, current_number)
 
         CalculatorWeb.Endpoint.broadcast_from(self(), @topic, "update_calc", %{
           current_number: ""
